@@ -11,8 +11,10 @@
 
     // PeerJS object
     var peer = new Peer({ key: 'lwjd5qra8257b9', debug: 3});
+    console.log("index.html >> peer object created...");
 
     peer.on('open', function(){
+      console.log("index.html >> on open socket...");
       $('#my-id').text(peer.id);
     });
 

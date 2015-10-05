@@ -462,7 +462,7 @@ function Peer(id, options) {
   // Ensure not using unsecure cloud server on SSL page
   if (options.secure && options.host === '0.peerjs.com') {
     this._delayedAbort('ssl-unavailable',
-      'The cloud server currently does not support HTTPS. Please run your own PeerServer to use HTTPS.');
+        'The cloud server currently does not support HTTPS. Please run your own PeerServer to use HTTPS.');
     return;
   }
   //
@@ -474,6 +474,7 @@ function Peer(id, options) {
   //
 
   // References
+  this.connections = {}; // DataConnections for this peer.
   this._lostMessages = {}; // src => [list of messages]
   //
 
@@ -521,7 +522,7 @@ Peer.prototype._retrieveId = function(cb) {
   var http = new XMLHttpRequest();
   var protocol = this.options.secure ? 'https://' : 'http://';
   var url = protocol + this.options.host + ':' + this.options.port +
-    this.options.path + this.options.key + '/id';
+      this.options.path + this.options.key + '/id';
   var queryString = '?ts=' + new Date().getTime() + '' + Math.random();
   url += queryString;
 
@@ -532,8 +533,8 @@ Peer.prototype._retrieveId = function(cb) {
     var pathError = '';
     if (self.options.path === '/' && self.options.host !== util.CLOUD_HOST) {
       pathError = ' If you passed in a `path` to your self-hosted PeerServer, ' +
-        'you\'ll also need to pass in that same path when creating a new ' +
-        'Peer.';
+          'you\'ll also need to pass in that same path when creating a new ' +
+          'Peer.';
     }
     self._abort('server-error', 'Could not get an ID from the server.' + pathError);
   };
@@ -663,8 +664,8 @@ Peer.prototype._getMessages = function(connectionId) {
 Peer.prototype.call = function(peer, stream, options) {
   if (this.disconnected) {
     util.warn('You cannot connect to a new Peer because you called ' +
-      '.disconnect() on this Peer and ended your connection with the ' +
-      'server. You can create a new Peer to reconnect.');
+        '.disconnect() on this Peer and ended your connection with the ' +
+        'server. You can create a new Peer to reconnect.');
     this.emitError('disconnected', 'Cannot connect to new Peer after disconnecting from server.');
     return;
   }
@@ -818,7 +819,7 @@ Peer.prototype.listAllPeers = function(cb) {
   var http = new XMLHttpRequest();
   var protocol = this.options.secure ? 'https://' : 'http://';
   var url = protocol + this.options.host + ':' + this.options.port +
-    this.options.path + this.options.key + '/peers';
+      this.options.path + this.options.key + '/peers';
   var queryString = '?ts=' + new Date().getTime() + '' + Math.random();
   url += queryString;
 
@@ -836,10 +837,10 @@ Peer.prototype.listAllPeers = function(cb) {
       var helpfulError = '';
       if (self.options.host !== util.CLOUD_HOST) {
         helpfulError = 'It looks like you\'re using the cloud server. You can email ' +
-          'team@peerjs.com to enable peer listing for your API key.';
+            'team@peerjs.com to enable peer listing for your API key.';
       } else {
         helpfulError = 'You need to enable `allow_discovery` on your self-hosted ' +
-          'PeerServer to use this feature.';
+            'PeerServer to use this feature.';
       }
       cb([]);
       throw new Error('It doesn\'t look like you have permission to list peers IDs. ' + helpfulError);
@@ -853,7 +854,6 @@ Peer.prototype.listAllPeers = function(cb) {
 };
 
 module.exports = Peer;
-
 },{"./mediaconnection":3,"./socket":6,"./util":7,"eventemitter3":8}],6:[function(require,module,exports){
 var util = require('./util');
 var EventEmitter = require('eventemitter3');
