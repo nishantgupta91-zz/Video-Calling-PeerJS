@@ -3,10 +3,6 @@
   "version": "0.3.14",
   "description": "PeerJS client",
   "main": "./lib/peer.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/peers/peerjs.git"
-  },
   "author": "Michelle Bu, Eric Zhang",
   "license": "MIT",
   "scripts": {
@@ -19,11 +15,11 @@
     "grunt-cli": "^0.1.13",
     "grunt-contrib-concat": "^0.5.0",
     "grunt-contrib-uglify": "^0.5.1",
+    "jquery": "^2.1.4",
     "mocha": "*"
   },
   "dependencies": {
     "eventemitter3": "^0.1.5",
-    "js-binarypack": "0.0.9",
-    "reliable": "git+https://github.com/michelle/reliable.git"
+    "js-binarypack": "0.0.9"
   }
 }
